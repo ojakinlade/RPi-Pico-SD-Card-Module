@@ -14,6 +14,7 @@ add_library(lib
     ffsystem.c
     ffunicode.c
     glue.c
+    hw_config.c
     hw_config.h
     my_debug.c
     my_debug.h

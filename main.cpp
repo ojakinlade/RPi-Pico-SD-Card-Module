@@ -3,6 +3,9 @@
 #include "pico/stdlib.h"
 #include "data_logger.h"
 
+const char* filename = "log.txt";
+char SDCard_ReadBuf[SDCARD_BUFFER_SIZE] = {0};
+
 int main()
 {
     stdio_init_all();
@@ -14,9 +17,10 @@ int main()
     
     while(true)
     {     
-        SDCard_Write("testFile.txt", "Testing 1,2,3\r\n");
-        SDCard_Write("logger.txt", "testtttt\r\n");
-        printf("Done writing to file.\r\n");
+        SDCard_Write(filename, "Testing 1,2,3\r\n");
+        SDCard_Read(filename, SDCard_ReadBuf,sizeof(SDCard_ReadBuf));
+        printf("SDCard Buffer:\r\n");
+        printf(SDCard_ReadBuf);
         sleep_ms(10000);
     }
 }

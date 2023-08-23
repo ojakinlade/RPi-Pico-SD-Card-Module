@@ -15,7 +15,6 @@ pico_sdk_init()
 # Tell CMake where to find the executable source file
 add_executable(pico_sd_card_test 
     main.cpp
-    hw_config.c
  )
 
  add_subdirectory(lib)
