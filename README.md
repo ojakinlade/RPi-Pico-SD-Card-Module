@@ -1,4 +1,4 @@
-# RPi-Pico-SD-Card_Module
+# RPi-Pico-SD-Card-Module
 
 This repository contains example code for basic SD card file operations using C and the FatFs library.
 
