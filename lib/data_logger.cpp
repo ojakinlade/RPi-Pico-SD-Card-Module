@@ -10,6 +10,7 @@
 FRESULT fr;/**< File operation result */
 FATFS fs; /**< File system structure */
 FIL fil; /**< File object */
+FILINFO fileInfo; /**< File information object */
 int ret; /**< Return value from file operations */
 char buf[SDCARD_BUFFER_SIZE]; /**< Temporary buffer for reading lines */
 
@@ -132,6 +133,18 @@ void SDCard_DeleteFile(const char* filename)
         printf("%s deleted\n",filename);
     }
     SDCard_Unmount(); 
+}
+
+bool SDCard_FileExists(const char* filename)
+{
+    SDCard_Mount();
+    if(f_stat(filename, &fileInfo))
+    {
+        SDCard_Unmount();
+        return true;
+    }
+    SDCard_Unmount();
+    return false;
 }
 
 void SDCard_DataQueue_Init(Queue_t* queue)

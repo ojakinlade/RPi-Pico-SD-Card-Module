@@ -16,6 +16,7 @@ extern void SDCard_Init(void);
 extern void SDCard_Write(const char* filename, const char* data);
 extern void SDCard_Read(const char* filename,char* sdCardBuf,size_t bufferSize);
 extern void SDCard_DeleteFile(const char* filename);
+extern bool SDCard_FileExists(const char* filename);
 extern void ParseDataIntoQueue(Queue_t* queue, char* data);
 extern void SDCard_DataQueue_Dequeue(Queue_t* queue, char* data);
 extern int SDCard_DataQueue_IsEmpty(Queue_t* queue);
