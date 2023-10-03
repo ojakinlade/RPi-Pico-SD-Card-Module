@@ -5,6 +5,8 @@
 #include "ff.h"
 #include "data_logger.h"
 
+#define EXPECTED_DATA_LEN   104
+
 FRESULT fr;/**< File operation result */
 FATFS fs; /**< File system structure */
 FIL fil; /**< File object */
@@ -120,4 +122,91 @@ void SDCard_Read(const char* filename,char* sdCardBuf,size_t bufferSize)
         while(true);
     }
     SDCard_Unmount();
+}
+
+void SDCard_DataQueue_Init(Queue_t* queue)
+{
+    queue->front = -1;
+    queue->rear = -1;
+    queue->size = 0;
+}
+
+int SDCard_DataQueue_IsFull(Queue_t* queue)
+{
+    return queue->size == MAX_QUEUE_SIZE;
+}
+
+int SDCard_DataQueue_IsEmpty(Queue_t* queue)
+{
+    return queue->size == 0;
+}
+
+int SDCard_DataQueue_Enqueue(Queue_t* queue, char* data)
+{
+    if(!SDCard_DataQueue_IsFull(queue))
+    {
+        if(queue->rear == -1)
+        {
+            queue->front = 0;
+            queue->rear = 0;
+            printf("Queue Init Success\n");
+        }
+        else
+        {
+            queue->rear = (queue->rear + 1) % MAX_QUEUE_SIZE;
+        }
+        strcpy((char*)queue->data[queue->rear], data);
+        printf("%s\n",queue->data[queue->rear]);
+        queue->size++;
+        printf("Queue size: %d\n", queue->size);
+        printf("Data added to queue\n");
+        return queue->size;
+    }
+    else
+    {
+        printf("Queue is full.\r\n");
+        return -1;
+    }
+}
+
+void SDCard_DataQueue_Dequeue(Queue_t* queue, char* data)
+{
+    if(!SDCard_DataQueue_IsEmpty(queue))
+    {
+       strcpy(data,(char*)queue->data[queue->front]);
+       queue->size--;
+       if (queue->front == queue->rear)
+       {
+           queue->front = -1;
+           queue->rear = -1;
+       }
+       else
+       {
+           queue->front = (queue->front + 1) % MAX_QUEUE_SIZE;
+       }
+    }
+    else
+    {
+        printf("Queue is empty.\r\n");
+        data[0] = '\0';
+    }
+}
+
+void ParseDataIntoQueue(Queue_t* queue, char* data)
+{
+    char dataLine[256] = {0};
+    int i;
+    int index = 0;
+    int numOfLines = strlen(data) / EXPECTED_DATA_LEN;
+    SDCard_DataQueue_Init(queue);
+    while(numOfLines != 0)
+    {
+        for(i = index; i < EXPECTED_DATA_LEN + index; i++)
+        {
+            dataLine[i - index] = data[i];
+        }
+        index = i + 1;
+        SDCard_DataQueue_Enqueue(queue,dataLine);
+        numOfLines--;
+    }
 }
