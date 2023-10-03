@@ -124,6 +124,16 @@ void SDCard_Read(const char* filename,char* sdCardBuf,size_t bufferSize)
     SDCard_Unmount();
 }
 
+void SDCard_DeleteFile(const char* filename)
+{
+    SDCard_Mount();
+    if(f_unlink(filename) == FR_OK)
+    {
+        printf("%s deleted\n",filename);
+    }
+    SDCard_Unmount(); 
+}
+
 void SDCard_DataQueue_Init(Queue_t* queue)
 {
     queue->front = -1;

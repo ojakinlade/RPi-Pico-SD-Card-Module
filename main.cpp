@@ -40,6 +40,7 @@ int main()
             printf("Data sent: %s\n",dataLine);
             sleep_ms(100);
         }
-        sleep_ms(30000);
+        SDCard_DeleteFile(filename);
+        sleep_ms(10000);
     }
 }
