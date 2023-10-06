@@ -135,16 +135,13 @@ void SDCard_DeleteFile(const char* filename)
     SDCard_Unmount(); 
 }
 
-bool SDCard_FileExists(const char* filename)
+FRESULT SDCard_FileExists(const char* filename)
 {
+    FRESULT fr;
     SDCard_Mount();
-    if(f_stat(filename, &fileInfo))
-    {
-        SDCard_Unmount();
-        return true;
-    }
+    fr = f_stat(filename,&fileInfo);
     SDCard_Unmount();
-    return false;
+    return fr; 
 }
 
 void SDCard_DataQueue_Init(Queue_t* queue)
