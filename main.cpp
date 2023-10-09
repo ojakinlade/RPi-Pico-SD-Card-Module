@@ -4,6 +4,7 @@
 #include "data_logger.h"
 
 #define INIT_FILE   "init.txt"
+
 const char* dataFile = "log.txt";
 char message[200] = "{\"timestamp\":\"24-07-2023 08:28:35\",\"sensor_id\":\"Test_01\",\"lat\":\"0.000000\",\"lng\":\"0.000000\",\"status\":\"1\"}\n";
 char SDCard_ReadBuf[SDCARD_BUFFER_SIZE] = {0};
