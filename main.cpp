@@ -25,6 +25,7 @@ int main()
     {
         deviceOnboard = true;
         printf("File does not exist");
+        SDCard_Write(INIT_FILE, "Device_ID: ");
         SDCard_Write(INIT_FILE, "pai-01");
     }
     else if(SDCard_FileExists(INIT_FILE) == FR_OK)
