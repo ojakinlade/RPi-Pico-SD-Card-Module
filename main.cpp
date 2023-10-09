@@ -24,13 +24,13 @@ int main()
     if(SDCard_FileExists(INIT_FILE) == FR_NO_FILE)
     {
         deviceOnboard = true;
-        printf("File does not exist");
+        printf("--File does not exist\n");
         SDCard_Write(INIT_FILE, "Device_ID: ");
         SDCard_Write(INIT_FILE, "pai-01");
     }
     else if(SDCard_FileExists(INIT_FILE) == FR_OK)
     {
-        printf("File exists");
+        printf("--File exists\n");
     }
     
     while(true)
@@ -38,7 +38,7 @@ int main()
         if(deviceOnboard)
         {
             deviceOnboard = false;
-            printf("Data sent to MQTT Init topic");
+            printf("--Data sent to MQTT Init topic\n");
         }
         SDCard_Write(dataFile, message);
         sleep_ms(500);
