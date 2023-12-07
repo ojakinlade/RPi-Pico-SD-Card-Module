@@ -50,7 +50,7 @@ int main()
         SDCard_Write(dataFile, message);
         sleep_ms(500);
         SDCard_Write(dataFile, message);
-        sleep_ms(500);
+        sleep_ms(4000);
         //Read from the SD Card
         SDCard_Read(dataFile,SDCardData,sizeof(SDCardData));
         ParseDataIntoQueue(&SDCardDataQueue,SDCardData);

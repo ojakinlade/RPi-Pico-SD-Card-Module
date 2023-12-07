@@ -5,7 +5,7 @@
 #include "ff.h"
 #include "data_logger.h"
 
-#define EXPECTED_DATA_LEN   104
+#define EXPECTED_DATA_LEN   97
 
 FRESULT fr;/**< File operation result */
 FATFS fs; /**< File system structure */
@@ -225,7 +225,7 @@ void ParseDataIntoQueue(Queue_t* queue, char* data)
         {
             dataLine[i - index] = data[i];
         }
-        index = i + 1;
+        index = i;
         SDCard_DataQueue_Enqueue(queue,dataLine);
         numOfLines--;
     }
