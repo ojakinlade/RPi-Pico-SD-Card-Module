@@ -6,7 +6,7 @@
 #define INIT_FILE   "init.txt"
 
 const char* dataFile = "log.txt";
-char message[200] = "{\"Timestamp\":\"24-07-2023 08:28:35\",\"ID\":\"pai-01\",\"Lat\":\"0.000000\",\"Lng\":\"0.000000\",\"Status\":\"1\"}\n";
+char message[] = "{\"Timestamp\":\"24-07-2023 08:28:35\",\"DeviceID\":\"pai-01\",\"HexID\":\"LK1-P1-01\",\"Lat\":\"0.000000\",\"Lng\":\"0.000000\",\"Status\":\"1\"}\n";
 char SDCard_ReadBuf[SDCARD_BUFFER_SIZE] = {0};
 bool deviceOnboard = false;
 
